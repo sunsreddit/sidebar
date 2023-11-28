@@ -1,4 +1,6 @@
 import { UpdateSideBarRosterTable } from '../src/roster.mjs';
 (async () => {
-  await UpdateSideBarRosterTable();
+  const table = await UpdateSideBarRosterTable();
+  console.log(table);
+  return table;
 })();

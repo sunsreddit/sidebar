@@ -33,6 +33,7 @@
     "nba-api-client": "^1.1.2"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.23.3",
     "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.10",
     "cross-env": "^7.0.3",
