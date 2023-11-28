@@ -2,7 +2,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/redditsuns/sidebar/">
-    <img src="docs/logo.png" alt="Logo" width="235" height="177">
+    <img src="docs/images/logo.png" alt="Logo" width="235" height="177">
   </a>
   <h3 align="center">☀️ Phoenix Suns Sidebar Generator 🤖</h3>
   <p align="center">
@@ -96,7 +96,7 @@ Distributed under the MIT License. See [LICENSE][license-url] for more informati
 ## Contact
 <html>
   <body>
-    <p><img src="./docs/reddit.svg" style="width:3%; filter: invert(32%) sepia(91%) saturate(2585%) hue-rotate(0deg) brightness(100%) contrast(110%);"> 
+    <p><img src="./docs/images/reddit.svg" style="width:3%; filter: invert(32%) sepia(91%) saturate(2585%) hue-rotate(0deg) brightness(100%) contrast(110%);"> 
     <a href="https://reddit.com/u/bruxc/">u/bruxc</a>
     </p>
   </body>
@@ -108,12 +108,8 @@ Distributed under the MIT License. See [LICENSE][license-url] for more informati
   <!-- Shields -->
   [docker-shield]: https://img.shields.io/badge/Docker-%5E20.10.21-green?style=appveyor&logo=docker
   [docker-url]:    https://docs.docker.com/compose/
-  [linux-shield]:  https://img.shields.io/badge/Linux-%5E22.04.1-blue?style=appveyor&logo=linux
-  [linux-url]:     https://docs.ubuntu.com/
   [node-shield]:   https://img.shields.io/badge/Node.js-%5E19.2.0-green?style=appveyor&logo=nodedotjs
   [node-url]:      https://nodejs.org/en/docs/
-  [reddit-shield]: ./docs/reddit.svg
-  [rm-112]:        https://agile.sunsreddit.net/projects/suns-sidebar-project/work_packages/details/112/
 
   <!-- License -->
   [license-url]: LICENSE
