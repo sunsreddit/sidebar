@@ -105,5 +105,10 @@ dist
 
 # Temporary Files
 TEMP.md
+
 # Visual Studio Code
 .vscode
+
+# Archives
+*.bak
+*.old
