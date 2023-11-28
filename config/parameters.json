@@ -1,0 +1,16 @@
+{
+  "nba": {
+    "Endpoints": {
+      "league_schedule": "https://cdn.nba.com/static/json/staticData/scheduleLeagueV2.json"
+    },
+    "TeamID": 1610612756
+  },
+  "reddit": {
+    "roster": {
+      "team_name": "PHX SUNS"
+    },
+    "schedule": {
+      "team_name": "SUNS"
+    }
+  }
+}
