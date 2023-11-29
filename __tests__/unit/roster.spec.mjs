@@ -1,7 +1,7 @@
 import { describe, jest, it, expect } from '@jest/globals';
-import { UpdateSideBarRosterTable } from '../../src/roster.mjs';
+import { TeamRosterTable } from '../../src/roster.mjs';
 
-describe('UpdateSideBarRosterTable', () => {
+describe('TeamRosterTable', () => {
   it('should return a string with player and coach roster tables', async () => {
     jest.mock('nba-api-client', () => ({
       testRoster: jest.fn().mockResolvedValue({
@@ -13,7 +13,7 @@ describe('UpdateSideBarRosterTable', () => {
         },
       }),
     }));
-    const result = await UpdateSideBarRosterTable();
+    const result = await TeamRosterTable();
     expect(result).toContain('###');
     expect(result).toContain('| PLAYER | POSITION');
     expect(result).toContain('COACH | POSITION');
