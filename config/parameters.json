@@ -10,7 +10,8 @@
       "team_name": "PHX SUNS"
     },
     "schedule": {
-      "team_name": "SUNS"
+      "team_name": "SUNS",
+      "timezone": "America/Phoenix"
     }
   }
 }

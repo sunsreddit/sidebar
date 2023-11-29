@@ -3,7 +3,7 @@ import { seasonYearRange } from './helpers/index.mjs';
 import { default as parameters } from '../config/parameters.json' assert { type: 'json' };
 
 async function playerRosterTable(players) {
-  let table = `# | PLAYER | POSITION\n:- | :-: | -:\n`;
+  let table = `\n# | PLAYER | POSITION\n:- | :-: | -:\n`;
   Object.values(players).forEach((player) => {
     table += `${player.NUM} | ${player.PLAYER} | ${player.POSITION}\n`;
   });
@@ -11,14 +11,14 @@ async function playerRosterTable(players) {
 }
 
 async function coachRosterTable(coaches) {
-  let table = `COACH | POSITION\n:- | -:\n`;
+  let table = `\nCOACH | POSITION\n:- | -:\n`;
   Object.values(coaches).forEach((coach) => {
     table += `${coach.COACH_NAME} | ${coach.COACH_TYPE}\n`;
   });
   return table;
 }
 
-export async function UpdateSideBarRosterTable() {
+export async function TeamRosterTable() {
   const {
     reddit: { roster },
     nba: { TeamID },
@@ -28,7 +28,7 @@ export async function UpdateSideBarRosterTable() {
     TeamID,
     Season,
   });
-  const label = `###${roster.team_name} ROSTER ${Season}\n`;
+  const label = `\n###${roster.team_name} ROSTER ${Season}\n`;
   const pTable = await playerRosterTable(CommonTeamRoster);
   const cTable = await coachRosterTable(Coaches);
   return label + pTable + cTable;

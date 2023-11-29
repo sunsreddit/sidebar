@@ -1,6 +1,6 @@
 {
   "name": "sidebar",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The automation behind the Phoenix Suns subreddit sidebar.",
   "main": "bin/index.mjs",
   "type": "module",
@@ -10,7 +10,8 @@
   "scripts": {
     "lint": "",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest --coverage --config jest.config.mjs",
-    "start": "node ."
+    "start": "node .",
+    "start:debug": "node ./src/schedule.mjs"
   },
   "repository": {
     "type": "git",
@@ -30,12 +31,13 @@
   },
   "homepage": "https://github.com/redditsuns/sidebar#readme",
   "dependencies": {
+    "moment-timezone": "^0.5.43",
     "nba-api-client": "^1.1.2"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.23.3",
     "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.10",
+    "@typescript-eslint/parser": "^6.13.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.54.0",
     "eslint-plugin-node": "^11.1.0",

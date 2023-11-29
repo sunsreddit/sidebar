@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    es2021: true,
+    es6: true,
     node: true,
   },
   extends: 'eslint:recommended',
@@ -9,13 +9,13 @@ module.exports = {
       env: {
         node: true,
       },
-      files: ['.eslintrc.{js,cjs}'],
+      files: ['.eslintrc.{js,cjs}', '**/*.mjs'],
       parserOptions: {
-        sourceType: 'script',
+        sourceType: 'module',
       },
     },
   ],
-  parser: '@babel/eslint-parser',
+  parser: '@typescript-eslint/eslint-parser',
   parserOptions: {
     requireConfigFile: false,
     ecmaVersion: 'latest',
