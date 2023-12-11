@@ -1,7 +1,7 @@
 {
   "nba": {
     "Endpoints": {
-      "league_schedule": "https://cdn.nba.com/static/json/staticData/scheduleLeagueV2.json"
+      "league_schedule": "https://cdn.nba.com/static/json/staticData/scheduleLeagueV2_1.json"
     },
     "TeamID": 1610612756
   },
@@ -9,8 +9,7 @@
     "roster": {
       "team_name": "PHX SUNS"
     },
-    "schedule": {
-      "team_name": "SUNS",
+  "schedule": {
       "timezone": "America/Phoenix"
     }
   }
