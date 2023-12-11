@@ -1,5 +1,5 @@
 import NBA from 'nba-api-client';
-import { seasonYearRange } from './helpers/index.mjs';
+import { seasonYearRange } from './helpers.mjs';
 import { default as parameters } from '../config/parameters.json' assert { type: 'json' };
 
 async function playerRosterTable(players) {
