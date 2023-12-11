@@ -1,58 +1,42 @@
-import { default as parameters } from '../config/parameters.json' assert { type: 'json' };
-import { GameDayInfo } from './helpers/index.mjs';
+import { MonthlyGames, GameDayInfo } from './helpers.mjs';
+export class MonthlyScheduleGenerator {
+  constructor(teamObject) {
+    this.TeamID = teamObject.nba.TeamID;
+    this.TeamName = teamObject.reddit.roster.team_name;
+  }
 
-async function MonthlyGames(TeamID) {
-  const {
-    nba: { Endpoints },
-  } = parameters;
-  const monthNum = new Date().getMonth() + 1;
-  const data = await fetch(Endpoints.league_schedule);
-  const schedule = await data.json();
-  const monthlyGames = schedule.leagueSchedule.gameDates
-    .filter((gameDate) => {
-      // Check if the current monthNum matches
-      return gameDate.games.some(
-        (game) =>
-          game.monthNum === monthNum &&
-          (game.homeTeam.teamId === TeamID || game.awayTeam.teamId === TeamID)
-      );
-    })
-    .map((gameDate) => {
-      // Filter only the games for the current monthNum and specific team
-      gameDate.games = gameDate.games.filter(
-        (game) =>
-          game.monthNum === monthNum &&
-          (game.homeTeam.teamId === TeamID || game.awayTeam.teamId === TeamID)
-      );
-      return gameDate;
-    });
-  return monthlyGames;
-}
+  _label(TeamName) {
+    return `\n###${TeamName} MONTHLY SCHEDULE\n`;
+  }
 
-export async function MonthlyScheduleTable() {
-  const {
-    reddit: { roster },
-    nba: { TeamID },
-  } = parameters;
-  const games =  await MonthlyGames(TeamID);
-  const label = `\n###${roster.team_name} MONTHLY SCHEDULE\n`;
-  let table = `\nDATE | TIME | LOCATION | OPPONENT | SCORE | RESULT\n:-: | :- | :-: | -:\n`;
+  _header() {
+    return `\nDATE | TIME | LOCATION | OPPONENT | SCORE | RESULT\n:-: | :- | :-: | -:\n`;
+  }
 
-  Object.values(games).forEach((obj) => {
-    const game = obj.games[0];
+  _formatGameRow(game) {
     const gamedayInfo = GameDayInfo(game);
     const opponent =
-      TeamID === game.awayTeam.teamId
-        ? {
-            name: game.homeTeam.teamName,
-            location: 'Away',
-          }
-        : {
-            name: game.awayTeam.teamName,
-            location: 'Home',
-          };
-    const location =
-      (table += `${gamedayInfo.month_number}/${gamedayInfo.day_number} | ${gamedayInfo.game_time_local} | ${opponent.location} | ${opponent.name} | ${gamedayInfo.game_score} | ${gamedayInfo.game_result}\n`);
-  });
-  return label + table;
+      this.TeamID === game.awayTeam.teamId
+        ? { name: game.homeTeam.teamName, location: 'Away' }
+        : { name: game.awayTeam.teamName, location: 'Home' };
+
+    return `${gamedayInfo.month_number}/${gamedayInfo.day_number} | ${gamedayInfo.game_time_local} | ${opponent.location} | ${opponent.name} | ${gamedayInfo.game_score} | ${gamedayInfo.game_result}\n`;
+  }
+
+  async generateMonthlySchedule() {
+    const games = await MonthlyGames(this.TeamID);
+    return (
+      this._label(this.TeamName) +
+      this._header() +
+      this._generateTableRows(games)
+    );
+  }
+
+  _generateTableRows(games) {
+    let table = '';
+    Object.values(games).forEach((obj) => {
+      table += this._formatGameRow(obj.games[0]);
+    });
+    return table;
+  }
 }
