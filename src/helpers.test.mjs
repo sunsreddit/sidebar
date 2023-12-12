@@ -1,85 +1,115 @@
-import { beforeEach, describe, jest, it, expect } from '@jest/globals';
-import { GameDayInfo, MonthlyGames } from './helpers.mjs';
+import { describe, jest, it, expect } from '@jest/globals';
+import { GameDayInfo, MonthlyGames } from '../src/helpers.mjs';
 
-global.fetch = jest.fn();
-
-describe('MonthlyGames', () => {
-  beforeEach(() => {
-    global.fetch.mockClear();
-  });
-
-  it('should return the filtered and mapped games for the current month and specific team', async () => {
-    const mockTeamID = 123; // Replace with your test TeamID
-
-    // Mock the fetch response
-    const mockResponse = {
-      leagueSchedule: {
-        gameDates: [
-          {
-            monthNum: 12,
-            games: [
-              {
-                monthNum: 12,
-                homeTeam: { teamId: mockTeamID },
-                awayTeam: { teamId: 456 },
-              },
-            ],
-          },
-        ],
-      },
+describe('GameDayInfo', () => {
+  it('returns correct game information (Loss)', () => {
+    const game = {
+      homeTeam: { teamId: 123, score: 110 },
+      awayTeam: { teamId: 456, score: 100 },
+      gameStatus: 3,
+      gameDateTimeUTC: '2023-05-01T00:00:00Z',
     };
 
-    // Mock the fetch function to resolve with the mock response
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockResponse),
+    const result = GameDayInfo(game);
+
+    expect(result).toEqual({
+      day_number: '30',
+      month_number: '04',
+      month_short: 'Apr',
+      month_long: 'April',
+      year_number: '2023',
+      game_time_local: '05:00pm MST',
+      game_score: '110-100',
+      game_result: 'L',
     });
+  });
 
-    // Call the MonthlyGames function
-    const result = await MonthlyGames(mockTeamID);
+  it('returns correct game information (Win)', () => {
+    const game = {
+      homeTeam: { teamId: 123, score: 100 },
+      awayTeam: { teamId: 456, score: 110 },
+      gameStatus: 3,
+      gameDateTimeUTC: '2023-05-01T00:00:00Z',
+    };
 
-    // Assertions
-    const urlEndpoint =
-      'https://cdn.nba.com/static/json/staticData/scheduleLeagueV2_1.json';
-    expect(global.fetch).toHaveBeenCalledWith(urlEndpoint);
-    expect(result).toHaveLength(1);
-    // Add more assertions based on your specific test case
+    const result = GameDayInfo(game);
+
+    expect(result).toEqual({
+      day_number: '30',
+      month_number: '04',
+      month_short: 'Apr',
+      month_long: 'April',
+      year_number: '2023',
+      game_time_local: '05:00pm MST',
+      game_score: '100-110',
+      game_result: 'W',
+    });
+  });
+
+  it('handles inactive game', () => {
+    const game = {
+      homeTeam: { teamId: 123, score: 110 },
+      awayTeam: { teamId: 456, score: 100 },
+      gameStatus: 1,
+      gameDateTimeUTC: '2023-05-01T00:00:00Z',
+    };
+
+    const result = GameDayInfo(game);
+
+    expect(result).toEqual({
+      day_number: '30',
+      month_number: '04',
+      month_short: 'Apr',
+      month_long: 'April',
+      year_number: '2023',
+      game_time_local: '05:00pm MST',
+      game_score: '-',
+      game_result: '-',
+    });
   });
 });
 
-describe('GameDayInfo', () => {
-  jest.useFakeTimers().setSystemTime(new Date('2023-01-01T00:00:00Z'));
-  it('should return the correct game day information', () => {
-    // Mock data
-    const mockGame = {
-      homeTeam: { teamId: 1, score: 100 },
-      awayTeam: { teamId: 2, score: 99 },
-      gameStatus: 3, // Assuming the game is completed
-      gameDateTimeUTC: '2023-01-01T00:00:00Z',
-    };
+describe('MonthlyGames', () => {
+  it('fetches monthly games and filters by TeamID', async () => {
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        json: () =>
+          Promise.resolve({
+            leagueSchedule: {
+              gameDates: [
+                {
+                  monthNum: 4,
+                  games: [
+                    {
+                      gameStatus: 3,
+                      gameDateTimeUTC: '2023-05-01T00:00:00Z',
+                      awayTeam: { teamId: 456, score: 100 },
+                      homeTeam: { teamId: 123, score: 99 },
+                    },
+                  ],
+                },
+                {
+                  monthNum: 5,
+                  games: [
+                    {
+                      gameStatus: 3,
+                      gameDateTimeUTC: '2023-05-01T00:00:00Z',
+                      homeTeam: { teamId: 456, score: 100 },
+                      awayTeam: { teamId: 123, score: 99 },
+                    },
+                  ],
+                },
+              ],
+            },
+          }),
+      })
+    );
+    const result = await MonthlyGames(123);
+    expect(result).toHaveLength(1);
+  });
 
-    // Mock parameters
-    const mockParameters = {
-      nba: { TeamID: 1 },
-      reddit: { schedule: { timezone: 'America/New_York' } },
-    };
-    // Mock parameters.json
-    jest.mock('../config/parameters.json', () => ({
-      default: mockParameters,
-    }));
-
-    // Call the GameDayInfo function
-    const result = GameDayInfo(mockGame);
-
-    // Assertions
-    expect(result).toEqual({
-      day_number: '31',
-      month_number: '12',
-      month_short: 'Dec',
-      month_long: 'December',
-      year_number: '2022',
-      game_time_local: '05:00pm MST',
-      game_score: '100-99',
-      game_result: 'L',
-    });
+  it('fetches monthly games and handles fetch error', async () => {
+    global.fetch = jest.fn().mockRejectedValue(new Error('Fetch error'));
+    await expect(MonthlyGames(1610612756)).rejects.toThrow('Fetch error');
   });
 });
