@@ -1,6 +1,19 @@
 import moment from 'moment-timezone';
 import { default as parameters } from '../config/parameters.json' assert { type: 'json' };
 
+/**
+ * Returns game day information for the home and away teams.
+ * @param {object} game - Game data object
+ * @param {number} game.gameStatus - Game status ([1] Pending, [2] Started [3] Finished)
+ * @param {String} game.gameDateTimeUTC - ISO format of DateTime of game 
+ * @param {number} game.awayTeam.teamId - (Away) NBA team identification number
+ * @param {number} game.awayTeam.score - (Away) Team final score
+ * @param {number} game.homeTeam.teamId - (Home) NBA team identification number
+ * @param {number} game.homeTeam.score - (Home) Team final score
+ * @param {object} [params] - (Optional) Override parameters for NBA TeamID & timezone locale
+ * @returns {object}
+ * @public
+ */
 export function GameDayInfo(game, params) {
   const {
     nba: { TeamID },
@@ -28,6 +41,12 @@ export function GameDayInfo(game, params) {
   };
 }
 
+/**
+ * Returns a filtered list of the specified team's current monthly schedule.
+ * @param {number} TeamID - NBA team identification number
+ * @returns {object}
+ * @public
+ */
 export async function MonthlyGames(TeamID) {
   const {
     nba: { Endpoints },
@@ -55,6 +74,11 @@ export async function MonthlyGames(TeamID) {
     });
 }
 
+/**
+ * Returns the current NBA year in range format (e.g. '1990-91').
+ * @returns {String}
+ * @private
+ */
 function _seasonYearRange() {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
@@ -69,6 +93,13 @@ function _seasonYearRange() {
   return result;
 }
 
+/**
+ * Returns a gamethread friendly time format.
+ * @param {*} gameTime - ISO Format
+ * @param {*} timeZone - TZ Format
+ * @returns {string}
+ * @private
+ */
 function _localGameTime(gameTime, timeZone) {
   return moment
     .tz(gameTime, 'America/New_York')

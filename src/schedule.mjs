@@ -1,5 +1,16 @@
 import { MonthlyGames, GameDayInfo } from './helpers.mjs';
+
+/** Represents generated template for an NBA monthly team schedule
+ * @class
+ * @public
+ */
 export class MonthlyScheduleGenerator {
+  /**
+   * 
+   * @param {object} teamObject 
+   * @param {number} teamObject.TeamID -  NBA team identification number
+   * @param {string} teamObject.team_name - NBA team name
+   */
   constructor(teamObject) {
     this.TeamID = teamObject.nba.TeamID;
     this.TeamName = teamObject.reddit.roster.team_name;

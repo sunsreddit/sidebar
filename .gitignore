@@ -112,3 +112,10 @@ TEMP.md
 # Archives
 *.bak
 *.old
+
+# JSDoc Generated files
+docs/data
+docs/fonts
+docs/scripts
+docs/styles
+docs/**.html
