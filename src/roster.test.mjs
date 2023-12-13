@@ -1,5 +1,5 @@
 import { describe, jest, it, expect } from '@jest/globals';
-import { TeamRosterTable } from '../../src/roster.mjs';
+import { TeamRosterTable } from './roster.mjs';
 
 describe('TeamRosterTable', () => {
   it('should return a string with player and coach roster tables', async () => {
