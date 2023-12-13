@@ -15,9 +15,8 @@ module.exports = {
       },
     },
   ],
-  parser: '@typescript-eslint/eslint-parser',
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    requireConfigFile: false,
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
