@@ -1,40 +1,30 @@
 import moment from 'moment-timezone';
 import { default as parameters } from '../config/parameters.json' assert { type: 'json' };
 
-export function GameDayInfo(game) {
+export function GameDayInfo(game, params) {
   const {
     nba: { TeamID },
     reddit: { schedule },
-  } = parameters;
-  const isTeamHome = game.homeTeam.teamId === TeamID ? true : false;
-  const didTeamWin = isTeamHome
-    ? game.homeTeam.score > game.awayTeam.score
-    : game.awayTeam.score > game.homeTeam.score;
+  } = params || parameters;
+  const isTeamHome = () => game.homeTeam.teamId === TeamID;
+  const didTeamWin = () => (isTeamHome() && game.homeTeam.score > game.awayTeam.score) || (!isTeamHome() && game.awayTeam.score > game.homeTeam.score);
   const isGameActive = game.gameStatus === 2 || game.gameStatus === 3;
-  const result = isGameActive ? (didTeamWin ? 'W' : 'L') : '-';
-  const score =
-    game.gameStatus == 3
-      ? `${game.homeTeam.score}-${game.awayTeam.score}`
-      : '-';
+  const result = isGameActive ? (didTeamWin() ? 'W' : 'L') : '-';
+  const score = game.gameStatus === 3 ? `${game.homeTeam.score}-${game.awayTeam.score}` : '-';
   const date = new Date(game.gameDateTimeUTC);
   const locale = schedule.timezone;
+
   return {
-    day_number:
-      date.getDate() < 10 ? `0${date.getDate()}` : date.getDate().toString(),
-    month_number:
-      date.getMonth() + 1 < 10
-        ? `0${date.getMonth() + 1}`
-        : (date.getMonth() + 1).toString(),
-    month_short: new Intl.DateTimeFormat('en-US', { month: 'short' }).format(
-      date
-    ),
-    month_long: new Intl.DateTimeFormat('en-US', { month: 'long' }).format(
-      date
-    ),
+    day_number: `${date.getDate() < 10 ? '0' : ''}${date.getDate()}`,
+    month_number: `${(date.getMonth() + 1).toString().padStart(2, '0')}`,
+    month_short: new Intl.DateTimeFormat('en-US', { month: 'short' }).format(date),
+    month_long: new Intl.DateTimeFormat('en-US', { month: 'long' }).format(date),
     year_number: date.getFullYear().toString(),
     game_time_local: _localGameTime(date, locale),
     game_score: score,
     game_result: result,
+    isTeamHome: isTeamHome(),
+    didTeamWin: didTeamWin()
   };
 }
 

@@ -1,4 +1,4 @@
-import { describe, jest, it, expect } from '@jest/globals';
+import { beforeEach, describe, jest, it, expect } from '@jest/globals';
 import { MonthlyScheduleGenerator } from './schedule.mjs';
 
 // Mock MonthlyGames response
@@ -35,7 +35,6 @@ global.fetch = jest.fn(() =>
 );
 
 jest.mock('./helpers', () => ({
-  // ...jest.requireActual('./helpers'),
   MonthlyGames: jest.fn(() => sampleGamesData),
   GameDayInfo: jest.fn(() => ({
     month_number: '12',
