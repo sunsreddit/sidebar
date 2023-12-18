@@ -168,11 +168,6 @@ describe('MonthlyGames', () => {
     global.Date = realDate;
     expect(Array.isArray(result)).toBe(true);
     expect(result).toHaveLength(1);
-    // result.forEach((month) => {
-    //   month.games.forEach((game) => {
-    //     expect(game.homeTeam.teamId === 1 || game.awayTeam.teamId === 1).toBe(true);
-    //   });
-    // });
   });
 
   it('fetches monthly games and handles fetch error', async () => {
