@@ -9,8 +9,11 @@
     "roster": {
       "team_name": "PHX SUNS"
     },
-  "schedule": {
+    "schedule": {
       "timezone": "America/Phoenix"
+    },
+    "subreddit": {
+      "name": "bruxc"
     }
   }
 }
