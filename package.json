@@ -38,7 +38,8 @@
   "dependencies": {
     "dotenv": "^16.3.1",
     "moment-timezone": "^0.5.43",
-    "nba-api-client": "^1.1.2"
+    "nba-api-client": "^1.1.2",
+    "snoowrap": "^1.23.0"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

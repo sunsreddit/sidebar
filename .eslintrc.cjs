@@ -20,6 +20,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
+  ignorePatterns: ['docs'],
   rules: {
     indent: ['error', 2],
     'linebreak-style': 0,
