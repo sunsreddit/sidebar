@@ -37,7 +37,7 @@ async function coachRosterTable(coaches) {
  */
 export async function TeamRosterTable() {
   const {
-    reddit: { roster },
+    reddit: { subreddit },
     nba: { TeamID },
   } = parameters;
   const Season = seasonYearRange;
@@ -45,7 +45,7 @@ export async function TeamRosterTable() {
     TeamID,
     Season,
   });
-  const label = `\n###${roster.team_name} ROSTER ${Season}\n`;
+  const label = `\n###${subreddit.short_name} ROSTER ${Season}\n`;
   const pTable = await playerRosterTable(CommonTeamRoster);
   const cTable = await coachRosterTable(Coaches);
   return label + pTable + cTable;
