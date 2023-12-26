@@ -1,12 +1,12 @@
 // import reddit from '../src/reddit-api.mjs';
-import { discordTable } from "../src/discordTable.mjs";
-import { teamRecordTable } from "../src/record.mjs";
-import { divisionStandingsTable } from "../src/standing.mjs";
-import { MonthlyScheduleGenerator } from "../src/schedule.mjs";
-import { TeamRosterTable } from "../src/roster.mjs";
-import { hyperlinkTables } from "../src/hyperlink.mjs";
-import { default as parameters } from "../config/parameters.json" assert { type: "json" };
-import { formatTable } from "../src/helpers.mjs";
+import { discordTable } from '../src/discordTable.mjs';
+import { teamRecordTable } from '../src/record.mjs';
+import { divisionStandingsTable } from '../src/standing.mjs';
+import { MonthlyScheduleGenerator } from '../src/schedule.mjs';
+import { TeamRosterTable } from '../src/roster.mjs';
+import { hyperlinkTables } from '../src/hyperlink.mjs';
+import { default as parameters } from '../config/parameters.json' assert { type: 'json' };
+import { formatTable } from '../src/helpers.mjs';
 
 (async () => {
   /* User input parameters */
