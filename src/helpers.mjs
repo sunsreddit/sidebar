@@ -5,7 +5,7 @@ import { default as parameters } from '../config/parameters.json' assert { type:
  * Returns game day information for the home and away teams.
  * @param {object} game - Game data object
  * @param {number} game.gameStatus - Game status ([1] Pending, [2] Started [3] Finished)
- * @param {String} game.gameDateTimeUTC - ISO format of DateTime of game 
+ * @param {String} game.gameDateTimeUTC - ISO format of DateTime of game
  * @param {number} game.awayTeam.teamId - (Away) NBA team identification number
  * @param {number} game.awayTeam.score - (Away) Team final score
  * @param {number} game.homeTeam.teamId - (Home) NBA team identification number
@@ -15,17 +15,14 @@ import { default as parameters } from '../config/parameters.json' assert { type:
  * @public
  */
 export function GameDayInfo(game, params) {
-  const {
-    nba: { TeamID },
-    reddit: { schedule },
-  } = params || parameters;
+  const { nba: { TeamID }, timezone} = params || parameters;
   const isTeamHome = () => game.homeTeam.teamId === TeamID;
   const didTeamWin = () => (isTeamHome() && game.homeTeam.score > game.awayTeam.score) || (!isTeamHome() && game.awayTeam.score > game.homeTeam.score);
   const isGameActive = game.gameStatus === 2 || game.gameStatus === 3;
   const result = isGameActive ? (didTeamWin() ? 'W' : 'L') : '-';
   const score = game.gameStatus === 3 ? `${game.homeTeam.score}-${game.awayTeam.score}` : '-';
   const date = new Date(game.gameDateTimeUTC);
-  const locale = schedule.timezone;
+  const locale = timezone || 'America/New_York';
 
   return {
     day_number: `${date.getDate() < 10 ? '0' : ''}${date.getDate()}`,
@@ -72,6 +69,10 @@ export async function MonthlyGames(TeamID) {
       );
       return gameDate;
     });
+}
+
+export function formatTable(tableInput) {
+  return `\n***\n>${tableInput.split('\n').join('\n>')}\n`;
 }
 
 /**
