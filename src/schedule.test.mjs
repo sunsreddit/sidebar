@@ -52,7 +52,7 @@ describe('MonthlyScheduleGenerator', () => {
 
   it('generates the correct home schedule', async () => {
     // Create an instance of MonthlyScheduleGenerator
-    const teamObject = { nba: { TeamID: 1 }, reddit: { roster: { team_name: 'Team1' } } };
+    const teamObject = { nba: { TeamID: 1 }, reddit: { subreddit: { short_name: 'Team1' } } };
     const generator = new MonthlyScheduleGenerator(teamObject);
 
     // Call the generateMonthlySchedule method
@@ -66,7 +66,7 @@ describe('MonthlyScheduleGenerator', () => {
   });
 
   it('generates the correct away schedule', async () => {
-    const teamObject = { nba: { TeamID: 2 }, reddit: { roster: { team_name: 'Team2' } } };
+    const teamObject = { nba: { TeamID: 2 }, reddit: { subreddit: { short_name: 'Team2' } } };
     const generator = new MonthlyScheduleGenerator(teamObject);
 
     // Call the generateMonthlySchedule method
