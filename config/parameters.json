@@ -12,31 +12,6 @@
   "reddit": {
     "sections": [
       {
-        "title": "Suns News",
-        "links": [
-          {
-            "text": "Suns.com",
-            "url": "https://nba.com/suns"
-          },
-          {
-            "text": "Bright Side of the Sun",
-            "url": "https://brightsideofthesun.com"
-          },
-          {
-            "text": "SUNS bleacher report",
-            "url": "https://bleacherreport.com/phoenix-suns"
-          },
-          {
-            "text": "Arizona Sports",
-            "url": "https://arizonasports.com/phoenix-suns"
-          },
-          {
-            "text": "AZCentral Sports",
-            "url": "https://www.azcentral.com/sports/suns-nba/"
-          }
-        ]
-      },
-      {
         "title": "Suns Social",
         "links": [
           {
@@ -57,11 +32,40 @@
           },
           {
             "text": "Player Social Accounts",
-            "url": "https://sunson.com/social"
+            "url": "https://suns.com/social"
           },
           {
             "text": "Message the Moderators",
             "url": "https://reddit.com/message/compose?to=%2Fr%2Fsuns"
+          }
+        ]
+      },
+      {
+        "title": "Suns Links",
+        "links": [
+          {
+            "text": "Suns.com",
+            "url": "https://nba.com/suns"
+          },
+          {
+            "text": "Bright Side of the Sun",
+            "url": "https://brightsideofthesun.com"
+          },
+          {
+            "text": "Valley of the Suns",
+            "url": "https://valleyofthesuns.com"
+          },
+          {
+            "text": "SUNS bleacher report",
+            "url": "https://bleacherreport.com/phoenix-suns"
+          },
+          {
+            "text": "Arizona Sports",
+            "url": "https://arizonasports.com/phoenix-suns/"
+          },
+          {
+            "text": "AZCentral Sports",
+            "url": "https://www.azcentral.com/sports/suns-nba/"
           }
         ]
       },
@@ -103,72 +107,71 @@
         "links": [
           {
             "text": "Dick Van Arsdale",
-            "url": "https://suns.com/dick-van-arsdale"
+            "url": "http://suns.com/dick-van-arsdale"
           },
           {
             "text": "Walter Davis",
-            "url": "https://suns.com/walter-davis"
+            "url": "http://suns.com/walter-davis"
           },
           {
             "text": "Kevin Johnson",
-            "url": "https://suns.com/kevin-johnson"
+            "url": "http://suns.com/kevin-johnson"
           },
           {
             "text": "Dan Majerle",
-            "url": "https://suns.com/dan-majerle"
+            "url": "http://suns.com/dan-majerle"
           },
           {
             "text": "Steve Nash",
-            "url": "https://suns.com/steve-nash"
+            "url": "http://suns.com/steve-nash"
           },
           {
             "text": "Tom Chambers",
-            "url": "https://suns.com/tom-chambers"
+            "url": "http://suns.com/tom-chambers"
           },
           {
             "text": "Alvan Adams",
-            "url": "https://suns.com/alvan-adams"
+            "url": "http://suns.com/alvan-adams"
           },
           {
             "text": "Charles Barkley",
-            "url": "https://suns.com/charles-barkley"
+            "url": "http://suns.com/charles-barkley"
           },
           {
             "text": "Connie Hawkins",
-            "url": "https://suns.com/connie-hawkins"
+            "url": "http://suns.com/connie-hawkins"
           },
           {
             "text": "Paul Westphal",
-            "url": "https://suns.com/paul-westphal"
+            "url": "http://suns.com/paul-westphal"
           },
           {
             "text": "Jerry Colangelo",
-            "url": "https://suns.com/jerry-colangelo"
+            "url": "http://suns.com/jerry-colangelo"
           },
           {
             "text": "Cotton Fitzsimmons",
-            "url": "https://suns.com/cotton-fitzsimmons"
+            "url": "http://suns.com/cotton-fitzsimmons"
           },
           {
             "text": "John MacLeod",
-            "url": "https://suns.com/john-macleod"
+            "url": "http://suns.com/john-macleod"
           },
           {
             "text": "Joe Proski",
-            "url": "https://suns.com/joe-proski"
+            "url": "http://suns.com/joe-proski"
           },
           {
             "text": "Al McCoy",
-            "url": "https://suns.com/al-mccoy"
+            "url": "http://suns.com/al-mccoy"
           }
         ]
       }
     ],
     "subreddit": {
-      "r": "bruxc",
+      "r": "suns",
       "long_name": "Phoenix Suns",
-      "short_name": "PHX SUNS",
-      "name": "bruxc"
+      "short_name": "PHX SUNS"
     }
   },
   "timezone": "America/Phoenix"

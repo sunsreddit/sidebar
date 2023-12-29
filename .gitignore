@@ -113,6 +113,10 @@ TEMP.md
 *.bak
 *.old
 
+# Development files
+*.dev.*
+html/
+
 # JSDoc Generated files
 docs/data
 docs/fonts

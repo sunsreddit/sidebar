@@ -21,7 +21,7 @@ export class MonthlyScheduleGenerator {
   }
 
   _header() {
-    return `\nDATE | TIME | LOCATION | OPPONENT | SCORE | RESULT\n:-: | :- | :-: | -:\n`;
+    return `\n🗓️ | 🕕  | 👤 |  📊 | 🏆\n` + `:-: | :-: | :-: | :-: | :-:\n`;
   }
 
   _footer() {
@@ -32,10 +32,10 @@ export class MonthlyScheduleGenerator {
     const gamedayInfo = GameDayInfo(game);
     const opponent =
       this.TeamID === game.awayTeam.teamId
-        ? { name: game.homeTeam.teamName, location: 'Away' }
-        : { name: game.awayTeam.teamName, location: 'Home' };
+        ? { logo: `[](#${game.homeTeam.teamSlug})`, location: ' ✈️' }
+        : { logo: `[](#${game.awayTeam.teamSlug})`, location: ' 🏡' };
 
-    return `${gamedayInfo.month_number}/${gamedayInfo.day_number} | ${gamedayInfo.game_time_local} | ${opponent.location} | ${opponent.name} | ${gamedayInfo.game_score} | ${gamedayInfo.game_result}\n`;
+    return `${opponent.location} ${gamedayInfo.month_number}/${gamedayInfo.day_number} | ${gamedayInfo.game_time_local} | ${opponent.logo} | ${gamedayInfo.game_score} | ${gamedayInfo.game_result}\n`;
   }
 
   _generateTableRows(games) {
