@@ -1,4 +1,4 @@
-// import reddit from '../src/reddit-api.mjs';
+import Snoowrap from 'snoowrap';
 import { discordTable } from '../src/discordTable.mjs';
 import { teamRecordTable } from '../src/record.mjs';
 import { divisionStandingsTable } from '../src/standing.mjs';
@@ -7,6 +7,7 @@ import { TeamRosterTable } from '../src/roster.mjs';
 import { hyperlinkTables } from '../src/hyperlink.mjs';
 import { default as parameters } from '../config/parameters.json' assert { type: 'json' };
 import { formatTable } from '../src/helpers.mjs';
+import 'dotenv/config';
 
 (async () => {
   /* User input parameters */
@@ -25,7 +26,7 @@ import { formatTable } from '../src/helpers.mjs';
   const _teamRosterTable = await TeamRosterTable();
   const _hyperlinkTables = hyperlinkTables(parameters.reddit.sections);
   const _sidebarFooter = '\n[BACK TO TOP](#top)';
-  const results =
+  const description =
     _discordTable +
     formatTable(_teamRecordTable) +
     formatTable(_divisionStandingsTable) +
@@ -33,10 +34,14 @@ import { formatTable } from '../src/helpers.mjs';
     formatTable(_teamRosterTable) +
     _hyperlinkTables +
     formatTable(_sidebarFooter);
-  console.log(results);
-  return results;
+
+  return new Snoowrap({
+    userAgent: process.env.USER_AGENT,
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    refreshToken: process.env.REFRESH_TOKEN
+  }).getSubreddit(subreddit.r).editSettings({
+    description
+  });
 })();
 
-// const subreddit = await reddit.getSubreddit(parameters.reddit.subreddit.r);
-// await subreddit.editSettings({description: schedule + roster});
-// return schedule + roster;
