@@ -19,7 +19,7 @@ export function GameDayInfo(game, params) {
   const isTeamHome = () => game.homeTeam.teamId === TeamID;
   const didTeamWin = () => (isTeamHome() && game.homeTeam.score > game.awayTeam.score) || (!isTeamHome() && game.awayTeam.score > game.homeTeam.score);
   const isGameActive = game.gameStatus === 2 || game.gameStatus === 3;
-  const result = isGameActive ? (didTeamWin() ? 'W' : 'L') : '-';
+  const result = isGameActive ? (didTeamWin() ? '**W**' : 'L') : '-';
   const score = game.gameStatus === 3 ? `${game.homeTeam.score}-${game.awayTeam.score}` : '-';
   const date = new Date(game.gameDateTimeUTC);
   const locale = timezone || 'America/New_York';
@@ -105,7 +105,7 @@ function _localGameTime(gameTime, timeZone) {
   return moment
     .tz(gameTime, 'America/New_York')
     .tz(timeZone, false)
-    .format('hh:mma z');
+    .format('hh:mmz');
 }
 
 export const seasonYearRange = _seasonYearRange();

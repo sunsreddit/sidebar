@@ -9,7 +9,7 @@ import { default as parameters } from '../config/parameters.json' assert { type:
  * @private
  */
 async function playerRosterTable(players) {
-  let table = `\n# | PLAYER | POSITION\n:- | :-: | -:\n`;
+  let table = `\n\\# | PLAYER | POSITION\n:-: | :-: | :-:\n`;
   Object.values(players).forEach((player) => {
     table += `${player.NUM} | ${player.PLAYER} | ${player.POSITION}\n`;
   });
@@ -23,7 +23,7 @@ async function playerRosterTable(players) {
  * @private
  */
 async function coachRosterTable(coaches) {
-  let table = `\nCOACH | POSITION\n:- | -:\n`;
+  let table = `\nCOACH | POSITION\n` + `:-: | :-:\n`;
   Object.values(coaches).forEach((coach) => {
     table += `${coach.COACH_NAME} | ${coach.COACH_TYPE}\n`;
   });
@@ -50,3 +50,6 @@ export async function TeamRosterTable() {
   const cTable = await coachRosterTable(Coaches);
   return label + pTable + cTable;
 }
+
+const t = `\n\\# | PLAYER | POSITION\n:- | :-: | -:\n`;
+console.log(t);
