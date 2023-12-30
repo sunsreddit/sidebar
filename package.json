@@ -16,6 +16,7 @@
     "lint": "npx eslint .",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest --coverage --config jest.config.mjs",
     "start": "node .",
+    "start:cron": "node --no-warnings ./bin/cron.mjs",
     "start:debug": "node ./src/debugger.mjs"
   },
   "repository": {
@@ -36,6 +37,7 @@
   },
   "homepage": "https://github.com/redditsuns/sidebar#readme",
   "dependencies": {
+    "cron": "^3.1.6",
     "dotenv": "^16.3.1",
     "moment-timezone": "^0.5.43",
     "nba-api-client": "^1.1.2",

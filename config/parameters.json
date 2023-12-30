@@ -1,4 +1,8 @@
 {
+  "cron": {
+    "cronTime": "*/1 * * * *",
+    "timeZone": "America/New_York"
+  },
   "discord": {
     "url": "https://discord.gg/invite/AJSC7yw"
   },
