@@ -106,8 +106,8 @@ tables with the pertinent details of game scores, players, and other fun statist
 ### V. Docker:
   - Add version number to the `VERSION` in `.env`
   - Add `NPM_CRON=on` in `.env`
-  - For no prompting, build with the following NPM script: `npm run build:force`
-  - For prompting, build with the following NPM script: `npm run build`
+  - For no prompting, build with the following NPM script: `npm run build:docker:force`
+  - For prompting, build with the following NPM script: `npm run build:docker`
 
   ```bash
   # example
