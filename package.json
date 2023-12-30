@@ -1,6 +1,6 @@
 {
   "name": "sidebar",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "The automation behind the Phoenix Suns subreddit sidebar.",
   "main": "bin/index.mjs",
   "type": "module",
@@ -12,10 +12,14 @@
     "src": "src"
   },
   "scripts": {
+    "build:docker": "bash scripts/build_docker.sh",
+    "build:docker:force": "bash scripts/build_docker.sh --force",
+    "build:docker:windows": "echo Please uninstall your operating system.",
     "docs": "npx jsdoc -c jsdoc.json",
     "lint": "npx eslint .",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest --coverage --config jest.config.mjs",
     "start": "node .",
+    "start:cron": "node --no-warnings ./bin/cron.mjs",
     "start:debug": "node ./src/debugger.mjs"
   },
   "repository": {
@@ -36,8 +40,10 @@
   },
   "homepage": "https://github.com/redditsuns/sidebar#readme",
   "dependencies": {
+    "cron": "^3.1.6",
     "dotenv": "^16.3.1",
-    "moment-timezone": "^0.5.43",
+    "es-main": "^1.3.0",
+    "moment-timezone": "^0.5.44",
     "nba-api-client": "^1.1.2",
     "snoowrap": "^1.23.0"
   },

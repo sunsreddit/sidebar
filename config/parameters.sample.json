@@ -1,0 +1,62 @@
+{
+  "cron": {
+    "cronTime": "30 10 * * *",
+    "timeZone": "America/New_York"
+  },
+  "discord": {
+    "url": "https://discord.gg/invite/ABCDE1fg"
+  },
+  "nba": {
+    "Division": "West",
+    "Endpoints": {
+      "league_schedule": "https://cdn.nba.com/static/json/staticData/scheduleLeagueV2_1.json"
+    },
+    "TeamID": 1610612756
+  },
+  "reddit": {
+    "sections": [
+      {
+        "title": "Suns Social",
+        "links": [
+          {
+            "text": "r/Suns on Twitter",
+            "url": "https://twitter.com/sunsreddit"
+          }
+        ]
+      },
+      {
+        "title": "Suns Links",
+        "links": [
+          {
+            "text": "Suns.com",
+            "url": "https://nba.com/suns"
+          }
+        ]
+      },
+      {
+        "title": "Related Subreddits",
+        "links": [
+          {
+            "text": "r/NBA",
+            "url": "/r/nba"
+          }
+        ]
+      },
+      {
+        "title": "Ring of Honor",
+        "links": [
+          {
+            "text": "Steve Nash",
+            "url": "https://suns.com/steve-nash"
+          }
+        ]
+      }
+    ],
+    "subreddit": {
+      "r": "suns",
+      "long_name": "Phoenix Suns",
+      "short_name": "PHX SUNS"
+    }
+  },
+  "timeZone": "America/Phoenix"
+}
