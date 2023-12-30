@@ -1,4 +1,5 @@
 import Snoowrap from 'snoowrap';
+import esMain from 'es-main';
 import { discordTable } from '../src/discordTable.mjs';
 import { teamRecordTable } from '../src/record.mjs';
 import { divisionStandingsTable } from '../src/standing.mjs';
@@ -9,7 +10,8 @@ import { default as parameters } from '../config/parameters.json' assert { type:
 import { formatTable } from '../src/helpers.mjs';
 import 'dotenv/config';
 
-(async () => {
+export async function Sidebar() {
+
   /* User input parameters */
   const { reddit: { subreddit }, discord, nba: { TeamID } } = parameters;
 
@@ -43,5 +45,6 @@ import 'dotenv/config';
   }).getSubreddit(subreddit.r).editSettings({
     description
   });
-})();
+}
 
+if (esMain(import.meta)) await Sidebar();
