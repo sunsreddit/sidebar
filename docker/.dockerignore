@@ -1,0 +1,27 @@
+# hidden
+.env
+.env.test
+.eslintrc.cjs
+.github/
+.gitignore
+.vscode/
+
+# directory
+coverage/
+data/
+docker/
+docs/
+html/
+node_modules/
+scripts/
+test/
+
+# file
+*.test.*
+babel.config.json
+CHANGELOG.md
+jest.config.mjs
+jsdoc.json
+LICENSE
+README.md
+RELEASES.md

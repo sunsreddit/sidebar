@@ -12,6 +12,9 @@
     "src": "src"
   },
   "scripts": {
+    "build:docker": "bash scripts/build_docker.sh",
+    "build:docker:force": "bash scripts/build_docker.sh --force",
+    "build:docker:windows": "echo Please uninstall your operating system.",
     "docs": "npx jsdoc -c jsdoc.json",
     "lint": "npx eslint .",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest --coverage --config jest.config.mjs",
