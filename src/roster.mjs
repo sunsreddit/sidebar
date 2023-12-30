@@ -50,6 +50,3 @@ export async function TeamRosterTable() {
   const cTable = await coachRosterTable(Coaches);
   return label + pTable + cTable;
 }
-
-const t = `\n\\# | PLAYER | POSITION\n:- | :-: | -:\n`;
-console.log(t);

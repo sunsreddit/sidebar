@@ -174,5 +174,5 @@
       "short_name": "PHX SUNS"
     }
   },
-  "timezone": "America/Phoenix"
+  "timeZone": "America/Phoenix"
 }

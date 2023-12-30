@@ -10,19 +10,19 @@ import { default as parameters } from '../config/parameters.json' assert { type:
  * @param {number} game.awayTeam.score - (Away) Team final score
  * @param {number} game.homeTeam.teamId - (Home) NBA team identification number
  * @param {number} game.homeTeam.score - (Home) Team final score
- * @param {object} [params] - (Optional) Override parameters for NBA TeamID & timezone locale
+ * @param {object} [params] - (Optional) Override parameters for NBA TeamID & timeZone locale
  * @returns {object}
  * @public
  */
 export function GameDayInfo(game, params) {
-  const { nba: { TeamID }, timezone} = params || parameters;
+  const { nba: { TeamID }, timeZone} = params || parameters;
   const isTeamHome = () => game.homeTeam.teamId === TeamID;
   const didTeamWin = () => (isTeamHome() && game.homeTeam.score > game.awayTeam.score) || (!isTeamHome() && game.awayTeam.score > game.homeTeam.score);
   const isGameActive = game.gameStatus === 2 || game.gameStatus === 3;
   const result = isGameActive ? (didTeamWin() ? '**W**' : 'L') : '-';
   const score = game.gameStatus === 3 ? `${game.homeTeam.score}-${game.awayTeam.score}` : '-';
   const date = new Date(game.gameDateTimeUTC);
-  const locale = timezone || 'America/New_York';
+  const locale = timeZone || 'America/New_York';
 
   return {
     day_number: `${date.getDate() < 10 ? '0' : ''}${date.getDate()}`,
