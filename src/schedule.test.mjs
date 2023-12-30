@@ -60,8 +60,8 @@ describe('MonthlyScheduleGenerator', () => {
 
     // Assertions
     expect(result).toContain('MONTHLY SCHEDULE');
-    expect(result).toContain('05:00pm MST');
-    expect(result).toContain('Home');
+    expect(result).toContain('05:00MST');
+    expect(result).toContain('🏠');
     // Add more assertions based on your specific test case
   });
 
@@ -74,7 +74,7 @@ describe('MonthlyScheduleGenerator', () => {
 
     // Assertions
     expect(result).toContain('MONTHLY SCHEDULE');
-    expect(result).toContain('05:00pm MST');
-    expect(result).toContain('Away');
+    expect(result).toContain('05:00MST');
+    expect(result).toContain('✈️');
   });
 });
