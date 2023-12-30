@@ -1,6 +1,6 @@
 {
   "name": "sidebar",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "The automation behind the Phoenix Suns subreddit sidebar.",
   "main": "bin/index.mjs",
   "type": "module",
