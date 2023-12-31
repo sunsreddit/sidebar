@@ -72,6 +72,14 @@ export async function MonthlyGames(TeamID) {
 }
 
 export function formatTable(tableInput) {
+  // Check if tableInput is a string
+  if (typeof tableInput !== 'string') {
+    console.error('Error: tableInput must be a string');
+    console.error(`Error property: ${tableInput}`);
+    return '';
+  }
+
+  // Format the table
   return `\n***\n>${tableInput.split('\n').join('\n>')}\n`;
 }
 
