@@ -24,8 +24,8 @@ export class MonthlyScheduleGenerator {
     return `\n🗓️ | 🕘  | 🏀 |  📊 | 🏆\n` + `:-: | :-: | :-: | :-: | :-:\n`;
   }
 
-  _footer() {
-    return `\n####[View full schedule](http://www.suns.com/schedule)`;
+  _footer(TeamName) {
+    return `\n####[View full schedule](https://www.${TeamName}.com/schedule)`;
   }
 
   _formatGameRow(game) {
@@ -52,7 +52,7 @@ export class MonthlyScheduleGenerator {
       this._label(this.TeamName) +
       this._header() +
       this._generateTableRows(games) +
-      this._footer()
+      this._footer(this.TeamName)
     );
   }
 }
