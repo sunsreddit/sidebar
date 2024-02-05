@@ -1,27 +1,41 @@
-# hidden
-.env
-.env.test
+# Ignore linting files
 .eslintrc.cjs
-.github/
-.gitignore
+
+# Ignore Jest configuration
+jest.config.mjs
+
+# Ignore documentation files
+docs/
+*.html
+*.md
+*.markdown
+.markdownlint.json
+jsdoc.json
+
+# Ignore environment files
+*.env
+*.env.*
+
+# Ignore Node.js modules
+node_modules/
+
+# Ignore Visual Studio Code settings
 .vscode/
 
-# directory
-coverage/
-data/
-docker/
-docs/
-html/
-node_modules/
-scripts/
-test/
+# Ignore Git related files
+.git/
+.gitignore
 
-# file
-*.test.*
-babel.config.json
-CHANGELOG.md
-jest.config.mjs
-jsdoc.json
+# Ignore license files
 LICENSE
-README.md
-RELEASES.md
+
+# Ignore data and script directories
+data/
+scripts/
+
+# Ignore Docker-related files
+docker/
+.dockerignore
+
+# Ignore coverage directory
+coverage/

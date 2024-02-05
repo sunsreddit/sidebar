@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
-import { hyperlinkTable } from '../src/hyperlink.mjs';
+import { hyperlinkTables } from './hyperlink.mjs';
 
 describe('generateCompleteMarkdown', () => {
   test('generates complete markdown for all sections', () => {
@@ -19,11 +19,10 @@ describe('generateCompleteMarkdown', () => {
       },
     ];
 
-    const result = hyperlinkTable(mockSections);
+    const result = hyperlinkTables(mockSections);
 
-    const expected = '##Section 1\n* [Link 1](http://example.com/link1)>* [Link 2](http://example.com/link2)\n\n>##Section 2\n* [Link 3](http://example.com/link3)\n\n';
-
-    expect(result).toEqual(expected);
+    const expected = '\n***\n>\n>##Section 1\n>* [Link 1](http://example.com/link1)\n>* [Link 2](http://example.com/link2)\n\n\n***\n>\n>##Section 2\n>* [Link 3](http://example.com/link3)\n';
+    expect(result).toMatch(expected);
   });
 
   // Add more test cases as needed

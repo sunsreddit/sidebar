@@ -1,4 +1,4 @@
-import NBA from 'nba-api-client';
+import NBA from '@sunsreddit/nba-stats';
 import { seasonYearRange } from './helpers.mjs';
 import { default as parameters } from '../config/parameters.json' assert { type: 'json' };
 
@@ -8,7 +8,7 @@ import { default as parameters } from '../config/parameters.json' assert { type:
  * @returns {string}
  * @private
  */
-async function playerRosterTable(players) {
+export async function playerRosterTable(players) {
   let table = `\n\\# | PLAYER | POSITION\n:-: | :-: | :-:\n`;
   Object.values(players).forEach((player) => {
     table += `${player.NUM} | ${player.PLAYER} | ${player.POSITION}\n`;
@@ -22,7 +22,7 @@ async function playerRosterTable(players) {
  * @returns {string}
  * @private
  */
-async function coachRosterTable(coaches) {
+export async function coachRosterTable(coaches) {
   let table = `\nCOACH | POSITION\n` + `:-: | :-:\n`;
   Object.values(coaches).forEach((coach) => {
     table += `${coach.COACH_NAME} | ${coach.COACH_TYPE}\n`;

@@ -1,15 +1,23 @@
-import { describe, test, expect } from '@jest/globals';
+import { describe, test, expect, jest } from '@jest/globals';
+import NBA from '@sunsreddit/nba-stats';
 import { teamRecordTable } from './record.mjs';
 
 describe('teamRecordTable', () => {
-  test('generates the correct record header', () => {
-    const team = 'Team4';
-    const wins = 10;
-    const losses = 1;
-    const yearRange = '1990-1991';
-    const url = `https://nba.com/${team}/schedule`;
-    const expected = `##${yearRange} Record\n\nWINS | LOSSES\n:--:|:--:\n${wins} | ${losses}\n[View Games](${url})\n`;
-    const result = teamRecordTable(team,wins,losses, yearRange);
-    expect(result).toEqual(expected);
+  test('should return a formatted team record table with NBA year range', async () => {
+    const teamId = 1234;
+
+    const standings = {
+      Standings: {
+        1234: { TeamID: 1234, WINS: 50, LOSSES: 32, TeamSlug: 'team1' },
+        4321: { TeamID: 4321, WINS: 8, LOSSES: 7, TeamSlug: 'team2' },
+      },
+    };
+
+    jest.mock('@sunsreddit/nba-stats');
+    jest.spyOn(NBA, 'leagueStandings').mockResolvedValue(standings);
+
+    const result = await teamRecordTable(teamId);
+    const expected = '\n##2023-24 Record\n\nWINS | LOSSES\n:--:|:--:\n50 | 32\n\n[View Games](https://nba.com/team1/schedule)\n';
+    expect(result).toBe(expected);
   });
 });
