@@ -113,9 +113,6 @@ TEMP.md
 *.bak
 *.old
 
-# Configuration files
-config/parameters.json
-
 # Development files
 *.dev.*
 html/

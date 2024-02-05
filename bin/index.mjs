@@ -13,16 +13,16 @@ import 'dotenv/config';
 export async function Sidebar() {
 
   /* User input parameters */
-  const { reddit: { subreddit }, discord, nba: { TeamID } } = parameters;
+  const { reddit: { subreddit }, nba: { TeamID } } = parameters;
 
   /* Banner Tables */
-  const _discordTable = discordTable(subreddit.long_name, discord.url);
+  const _discordTable = discordTable(subreddit.long_name, process.env.DISCORD_URL);
   const _teamRecordTable = await teamRecordTable(TeamID);
 
   /* Sidebar Tables */
   const _divisionStandingsTable = await divisionStandingsTable(TeamID);
 
-  // Will likely refactor; class seems a little overkill
+  // Eventually refactoring; class is unnecessary
   const generateSchedule = new MonthlyScheduleGenerator(parameters);
   const _monthlyTeamSchedule = await generateSchedule.generateMonthlySchedule();
   const _teamRosterTable = await TeamRosterTable();
@@ -36,7 +36,8 @@ export async function Sidebar() {
     formatTable(_teamRosterTable) +
     _hyperlinkTables +
     formatTable(_sidebarFooter);
-
+  
+  /* Reddit API POST */
   return new Snoowrap({
     userAgent: process.env.USER_AGENT,
     clientId: process.env.CLIENT_ID,
@@ -46,5 +47,4 @@ export async function Sidebar() {
     description
   });
 }
-
 if (esMain(import.meta)) await Sidebar();

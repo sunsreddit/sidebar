@@ -1,4 +1,4 @@
-import NBA from 'nba-api-client';
+import NBA from '@sunsreddit/nba-stats';
 import { seasonYearRange } from './helpers.mjs';
 import { default as parameters } from '../config/parameters.json' assert { type: 'json' };
 

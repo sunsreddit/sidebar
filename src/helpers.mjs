@@ -18,8 +18,8 @@ export function GameDayInfo(game, params) {
   const { nba: { TeamID }, timeZone} = params || parameters;
   const isTeamHome = () => game.homeTeam.teamId === TeamID;
   const didTeamWin = () => (isTeamHome() && game.homeTeam.score > game.awayTeam.score) || (!isTeamHome() && game.awayTeam.score > game.homeTeam.score);
-  const isGameActive = game.gameStatus === 2 || game.gameStatus === 3;
-  const result = isGameActive ? (didTeamWin() ? '**W**' : 'L') : '-';
+  const isGameActive = game.gameStatus === 1 || game.gameStatus === 2;
+  const result = isGameActive ? '-' : game.gameStatus === 3 ? (didTeamWin() ? '**W**' : 'L') : '-';
   const score = game.gameStatus === 3 ? `${game.homeTeam.score}-${game.awayTeam.score}` : '-';
   const date = new Date(game.gameDateTimeUTC);
   const locale = timeZone || 'America/New_York';
@@ -73,11 +73,7 @@ export async function MonthlyGames(TeamID) {
 
 export function formatTable(tableInput) {
   // Check if tableInput is a string
-  if (typeof tableInput !== 'string') {
-    console.error('Error: tableInput must be a string');
-    console.error(`Error property: ${tableInput}`);
-    return '';
-  }
+  if (typeof tableInput !== 'string') return '';
 
   // Format the table
   return `\n***\n>${tableInput.split('\n').join('\n>')}\n`;
@@ -88,18 +84,23 @@ export function formatTable(tableInput) {
  * @returns {String}
  * @private
  */
-function _seasonYearRange() {
-  const currentDate = new Date();
-  const currentYear = currentDate.getFullYear();
-  const nextYear = currentYear + 1;
+function _seasonYearRange(year) {
+  // If no year is provided, use the current year
+  if (!year) {
+    const today = new Date();
+    year = today.getFullYear();
+  }
 
-  // Get the last two digits of the next year
-  const nextYearLastTwoDigits = String(nextYear).slice(-2);
+  // NBA season starts in October, so if current month is before October, subtract 1 from year
+  if (new Date().getMonth() < 9) {
+    year -= 1;
+  }
 
-  // Combine the current year and the last two digits of the next year
-  const result = `${currentYear}-${nextYearLastTwoDigits}`;
+  // Calculate NBA season range based on the given year
+  const startYear = year;
+  const endYear = (year + 1).toString().substring(2);
 
-  return result;
+  return `${startYear}-${endYear}`;
 }
 
 /**
