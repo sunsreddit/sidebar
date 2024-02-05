@@ -1,0 +1,48 @@
+name: Docker Deployment
+on:
+  push:
+    branches:
+      - main
+jobs:
+  docker:
+    name: Docker (AWS ECR)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Project Version
+        id: project_version
+        run: echo "::set-output name=version::$(cat package.json | jq -r '.version')"
+
+      - name: "Testing: Variables (env)"
+        run:  env
+
+      - name: "Testing: Variables (step)"
+        run: echo ${{ steps.project_version.outputs.version }}
+      # - name: Build Docker image
+      #   env:
+      #     VERSION: ${{ steps.project_version.outputs.version }}
+      #     USER_AGENT: 'App/${VERSION} Subreddit Sidebar by /u/bruxc (bruxc@sunsreddit.net)'
+      #   run: npm run build:docker:force
+
+      # - name: Credentials
+      #   uses: aws-actions/configure-aws-credentials@v4
+      #   with:
+      #     role-to-assume: ${{ secrets.AWS_IAM_ROLE_ARN }}
+      #     aws-region: ${{ secrets.AWS_REGION }}
+
+      # - name: Login to AWS ECR
+      #   id: login-ecr
+      #   uses: aws-actions/amazon-ecr-login@v2
+
+      # - name: Authenticate with AWS ECR
+      #   run: |
+      #     aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | 
+      #     docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+
+      # - name: Tag Docker image
+      #   run: docker tag ${REPOSITORY_NAME}:${VERSION} ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${REPOSITORY_NAME}:latest
+
+      # - name: Push Docker image to AWS ECR
+      #   run: docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${REPOSITORY_NAME}:latest

@@ -4,7 +4,7 @@
   <a href="https://github.com/sunsreddit/sidebar/">
     <img src="docs/images/logo.png" alt="Logo" width="235" height="177">
   </a>
-  <h3 align="center">☀️ Phoenix Suns Sidebar Generator 🤖</h3>
+  <h3 align="center">☀️ Phoenix Suns Sidebar Generator 📊</h3>
   <p align="center">
     An automated service that updates the r/SUNS sub-reddit sidebar with the latest Phoenix Suns roster & schedules!
     <br />
@@ -84,17 +84,12 @@ tables with the pertinent details of game scores, players, and other fun statist
   
   ```bash
   TZ=America/New_York # TimeZone  
-  NPM_VERSION=21.6.1 # Node version
   NPM_CRON=on|off # Enable Cron support
   VERSION=1.0.0 # package.json project version
-  REPO_NAME=gitreponame # GitHub repository name (e.g. sidebar)
   CLIENT_ID=ABcD0fghIj2kLMNopqRSTUv # See Reddit API documentation
   CLIENT_SECRET=A1Bc_D_EfG2hIjK3LmnoPQrs4tu # See Reddit API documentation
-  ORGANIZATION=gitusername # GitHub username/organization (e.g. sunsreddit)
   ACCESS_TOKEN=abcDeFghiJKlMnOPqRsTUVWxYz01234567890... #See Reddit API documentation
-  NPM_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx # GitHub NPM Registry API access
   REFRESH_TOKEN=01234567890123-abcDEfGhIJKLmnopqRst0UV12Wxy-z # See Reddit API documentation
-  USER_AGENT=App/1.0.0 Subreddit Sidebar by /u/user (user@domain.com) # See Reddit API documentation
   ```
 
 ### II. Configuration Parameters
@@ -139,11 +134,12 @@ with the appropriate values.
 
 ## Roadmap
 
-  | TO DO      | Description                                          | Status
-  | --         | --                                                   | --
-  | Usage      | Add "Usage" instructions in the README.md            | ✅
-  | Automation | A Docker service that automates the projects actions | ✅
-  | Unit Tests | Jest UTs for all project modules                     | 🚧 Ongoing
+  | TO DO          | Description                                          | Status
+  | --             | --                                                   | --
+  | Usage          | Add "Usage" instructions in the README.md            | ✅
+  | Automation     | A Docker service that automates the projects actions | ✅
+  | Unit Tests     | Jest UTs for all project modules                     | ✅
+  | GitHub Actions | Continuous integration and project automation        | 🚧 Ongoing
 
 ## License
 

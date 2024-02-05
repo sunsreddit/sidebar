@@ -41,7 +41,7 @@ if [ "$VERSION" != 'development' ]; then
 fi
 
 # Docker build command
-IMAGE_NAME="$ORGANIZATION/$REPO_NAME"
+IMAGE_NAME=${IMAGE_NAME:-"$ORGANIZATION/$REPO_NAME"}
 docker buildx build \
   -f docker/Dockerfile \
   --rm \
