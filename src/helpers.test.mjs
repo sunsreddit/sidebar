@@ -59,6 +59,7 @@ describe('GameDayInfo', () => {
       month_long: 'May',
       year_number: '2023',
       game_time_local: '01:00MST',
+
       isTeamHome: false,
       game_score: '100-110',
       game_result: '**W**',
