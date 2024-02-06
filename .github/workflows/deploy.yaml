@@ -21,20 +21,22 @@ jobs:
         run: echo "version=$(cat package.json | jq -r '.version')" >> $GITHUB_OUTPUT
 
       - name: Setup ECR Authentication
+        id: ecr
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_IAM_ROLE_ARN }}
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Login to Amazon ECR
-        id: ecr
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Create Docker metadata
         id: metadata
         uses: docker/metadata-action@v5
+        env: 
+          REGISTRY: ${{ steps.ecr.outputs.registry }}
         with:
-          images: ${{ steps.ecr.outputs.registry }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
