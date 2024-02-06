@@ -21,8 +21,8 @@ jobs:
       - name: "Testing: Variables ($USER_AGENT)"
         run: echo $USER_AGENT
         env:
-          VERSION: ${{ steps.project_version.outputs.version }}
-          USER_AGENT: ${{ vars.USER_AGENT }}
+          USER_AGENT: "App/${{ steps.project_version.outputs.version }} Subreddit Sidebar by /u/bruxc (bruxc@sunsreddit.net)"
+        
       #   run: npm run build:docker:force
 
       # - name: Credentials
