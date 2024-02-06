@@ -20,10 +20,11 @@ jobs:
 
       - name: "Testing: Variables (step)"
         run: echo ${{ steps.project_version.outputs.version }}
-      # - name: Build Docker image
-      #   env:
-      #     VERSION: ${{ steps.project_version.outputs.version }}
-      #     USER_AGENT: 'App/${VERSION} Subreddit Sidebar by /u/bruxc (bruxc@sunsreddit.net)'
+      - name: Build Docker image
+        run: echo $USER_AGENT
+        env:
+          VERSION: ${{ steps.project_version.outputs.version }}
+          USER_AGENT: 'App/${VERSION} Subreddit Sidebar by /u/bruxc (bruxc@sunsreddit.net)'
       #   run: npm run build:docker:force
 
       # - name: Credentials
