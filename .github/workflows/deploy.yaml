@@ -18,13 +18,10 @@ jobs:
       - name: "Testing: Variables (env)"
         run:  env
 
-      - name: "Testing: Variables (step)"
-        run: echo ${{ steps.project_version.outputs.version }}
-
-      - name: Build Docker image
+      - name: "Testing: Variables ($USER_AGENT)"
         run: echo $USER_AGENT
         env:
-          VERSION: 
+          VERSION: ${{ steps.project_version.outputs.version }}
           USER_AGENT: ${{ vars.USER_AGENT }}
       #   run: npm run build:docker:force
 
