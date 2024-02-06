@@ -1,6 +1,6 @@
 {
   "name": "sidebar",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "The automation behind the Phoenix Suns subreddit sidebar.",
   "main": "bin/index.mjs",
   "type": "module",
@@ -15,13 +15,8 @@
   "scripts": {
     "build:docker": "sh scripts/npm/build_docker.sh",
     "build:docker:local": "npm run build:docker -- --local",
-    "build:docker:remote": "npm run build:docker -- --remote",
     "docs": "npx jsdoc -c jsdoc.json",
     "lint": "npx eslint .",
-    "package": "sh ./scripts/npm/package_npm.sh",
-    "package:patch": "npm run package patch",
-    "package:minor": "npm run package minor",
-    "package:major": "npm run package major",
     "start": "node .",
     "start:cron": "node --no-warnings ./bin/cron.mjs",
     "start:debug": "node ./src/debugger.mjs",
@@ -33,10 +28,11 @@
   },
   "keywords": [
     "reddit",
-    "sidebar",
     "phx",
     "phoenix",
-    "suns"
+    "suns",
+    "sidebar",
+    "bot"
   ],
   "author": "bruxc <bruxc@sunsreddit.net>",
   "license": "MIT",

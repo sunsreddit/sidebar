@@ -1,9 +1,9 @@
 FROM node:alpine
 
 ENV VERSION=${VERSION:-'development'} \
-  NPM_CRON=${NPM_CRON:-false} \
   USER_AGENT=${USER_AGENT:-"GenericApp/development"} \
   TZ=${TZ:-'America/New_York'} \
+  CRON=1 \
   WORKDIR=/usr/src/app
 
 LABEL maintainer="r/bruxc <bruxc@sunsreddit.net>" \
