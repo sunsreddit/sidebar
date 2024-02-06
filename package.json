@@ -14,8 +14,8 @@
   },
   "scripts": {
     "build:docker": "sh scripts/npm/build_docker.sh",
-    "build:docker:force": "npm run build:docker -- --force",
-    "build:docker:windows": "echo Please uninstall your operating system.",
+    "build:docker:local": "npm run build:docker -- --local",
+    "build:docker:remote": "npm run build:docker -- --remote",
     "docs": "npx jsdoc -c jsdoc.json",
     "lint": "npx eslint .",
     "package": "sh ./scripts/npm/package_npm.sh",

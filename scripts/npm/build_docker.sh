@@ -1,23 +1,29 @@
 #!/usr/bin/env sh
 
-# Set default values
-ORGANIZATION=${ORGANIZATION:-$(basename "$(realpath ..)")}
-REPO_NAME=${REPO_NAME:-$(basename "$(realpath .)")}
-VERSION=${VERSION:-"development"}
-
 # Check for flags
-FORCE=false
+LOCAL=false; REMOTE=false
 for arg in "$@"; do
   case "$arg" in
-  --force)
-    FORCE=true
+  --local)
+    LOCAL=true
+    break
+    ;;
+  --remote)
+    REMOTE=true
     break
     ;;
   esac
 done
 
-# Prompt the user for input if not forced
-if [ "$FORCE" = 'false' ]; then
+# Set default local values
+if [ "$REMOTE" = 'false' ]; then
+  ORGANIZATION=${ORGANIZATION:-$(basename "$(realpath ..)")}
+  REPO_NAME=${REPO_NAME:-$(basename "$(realpath .)")}
+  VERSION=${VERSION:-"development"}
+fi
+
+# Prompt the user for input if not forced (i.e. 'local' or 'remote')
+if [ "$LOCAL" = 'false' && "$REMOTE" == 'false' ]; then
   echo "Organization (default: $ORGANIZATION):"
   read input
   ORGANIZATION=${input:-$ORGANIZATION}
@@ -40,13 +46,17 @@ if [ "$VERSION" != 'development' ]; then
   VERSION=$(echo "$VERSION" | tr -d '\r')
 fi
 
-# Docker build command
-IMAGE_NAME=${IMAGE_NAME:-"$ORGANIZATION/$REPO_NAME"}
-docker buildx build \
-  -f docker/Dockerfile \
-  --rm \
-  --build-arg ORGANIZATION="$ORGANIZATION" \
-  --build-arg REPO_NAME="$REPO_NAME" \
-  --build-arg VERSION="$VERSION" \
-  -t "$IMAGE_NAME:$VERSION" \
-  .
+# Local Docker build command
+if [ "$REMOTE" = 'false' ]; then
+  IMAGE_NAME=${IMAGE_NAME:-"$ORGANIZATION/$REPO_NAME"}
+  docker buildx build \
+    -f docker/Dockerfile \
+    --rm \
+    --build-arg VERSION="$VERSION" \
+    -t "$IMAGE_NAME:$VERSION" \
+    .
+fi
+
+if [ "$REMOTE" = 'true' ]; then
+  docker build -f docker/Dockerfile --rm -t .
+fi

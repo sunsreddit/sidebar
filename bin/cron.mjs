@@ -20,6 +20,6 @@ CronJob.from({
     console.log(`Cron iteration: ${new Date().toLocaleString('en-US', { timeZone })}`);
   },
   runOnInit: false,
-  start: process.env.NPM_CRON.toLowerCase() === 'on' ? true : false,
+  start: process.env.CRON === '1',
   timeZone,
 });
