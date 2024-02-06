@@ -13,17 +13,16 @@ jobs:
 
       - name: Project Version
         id: project_version
-        run: echo "::set-output name=version::$(cat package.json | jq -r '.version')"
-
-      - name: "Testing: Variables (env)"
-        run:  env
-
-      - name: "Testing: Variables ($USER_AGENT)"
+        # run: echo "::set-output name=version::$(cat package.json | jq -r '.version')"
+        run: echo "version=$(cat package.json | jq -r '.version')" >> $GITHUB_OUTPUT
+        
+      - name: Build Docker Image
+        # run: npm run build:docker:force
         run: echo $USER_AGENT
         env:
+          IMAGE_NAME: 
           USER_AGENT: "App/${{ steps.project_version.outputs.version }} Subreddit Sidebar by /u/bruxc (bruxc@sunsreddit.net)"
-        
-      #   run: npm run build:docker:force
+          VERSION: ${{ steps.project_version.outputs.version }}
 
       # - name: Credentials
       #   uses: aws-actions/configure-aws-credentials@v4
