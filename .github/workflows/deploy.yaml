@@ -10,6 +10,9 @@ jobs:
   docker:
     name: Docker (AWS ECR)
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     env:
       IMAGE_NAME: ${{ github.repository }}
     steps:
