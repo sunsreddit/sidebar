@@ -19,7 +19,6 @@
     "lint": "npx eslint .",
     "start": "node .",
     "start:cron": "node --no-warnings ./bin/cron.mjs",
-    "start:debug": "node ./src/debugger.mjs",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest --coverage --config jest.config.mjs"
   },
   "repository": {
@@ -45,12 +44,12 @@
     "cron": "^3.1.6",
     "dotenv": "^16.4.1",
     "es-main": "^1.3.0",
-    "moment-timezone": "^0.5.44",
+    "moment-timezone": "^0.5.45",
     "snoowrap": "^1.23.0"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
-    "@typescript-eslint/parser": "^6.19.1",
+    "@typescript-eslint/parser": "^6.21.0",
     "clean-jsdoc-theme": "^4.2.17",
     "cross-env": "^7.0.3",
     "eslint": "^8.56.0",
