@@ -21,7 +21,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Configure NPM
-        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+          echo "@sunsreddit:registry=https://npm.pkg.github.com" >> ~/.npmrc
 
       # - name: Dependencies
       #   run: npm ci --ignore-scripts
