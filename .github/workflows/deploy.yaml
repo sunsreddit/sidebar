@@ -20,10 +20,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Configure NPM
-        run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
-          echo "@sunsreddit:registry=https://npm.pkg.github.com" >> .npmrc
+      # - name: Configure NPM
+      #   run: |
+      #     echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+      #     echo "@sunsreddit:registry=https://npm.pkg.github.com" >> .npmrc
 
       - name: Get Project Version
         id: version
@@ -52,11 +52,14 @@ jobs:
             type=semver,pattern={{major}}
             type=raw,value={{sha}},enable=${{ github.ref_type != 'tag' }}
 
-      - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Push to Amazon ECR
-        uses: docker/build-push-action@v5
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: actions/setup-node@v4
+        with:
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@sunsreddit'
+          node-version-file: 'package.json'
+      - uses: docker/build-push-action@v5
         with:
           context: '.'
           build-args: |
