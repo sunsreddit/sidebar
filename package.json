@@ -1,6 +1,6 @@
 {
   "name": "sidebar",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "The automation behind the Phoenix Suns subreddit sidebar.",
   "main": "bin/index.mjs",
   "type": "module",
@@ -15,16 +15,10 @@
   "scripts": {
     "build:docker": "sh scripts/npm/build_docker.sh",
     "build:docker:local": "npm run build:docker -- --local",
-    "build:docker:remote": "npm run build:docker -- --remote",
     "docs": "npx jsdoc -c jsdoc.json",
     "lint": "npx eslint .",
-    "package": "sh ./scripts/npm/package_npm.sh",
-    "package:patch": "npm run package patch",
-    "package:minor": "npm run package minor",
-    "package:major": "npm run package major",
     "start": "node .",
     "start:cron": "node --no-warnings ./bin/cron.mjs",
-    "start:debug": "node ./src/debugger.mjs",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest --coverage --config jest.config.mjs"
   },
   "repository": {
@@ -33,10 +27,11 @@
   },
   "keywords": [
     "reddit",
-    "sidebar",
     "phx",
     "phoenix",
-    "suns"
+    "suns",
+    "sidebar",
+    "bot"
   ],
   "author": "bruxc <bruxc@sunsreddit.net>",
   "license": "MIT",
@@ -49,12 +44,12 @@
     "cron": "^3.1.6",
     "dotenv": "^16.4.1",
     "es-main": "^1.3.0",
-    "moment-timezone": "^0.5.44",
+    "moment-timezone": "^0.5.45",
     "snoowrap": "^1.23.0"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
-    "@typescript-eslint/parser": "^6.19.1",
+    "@typescript-eslint/parser": "^6.21.0",
     "clean-jsdoc-theme": "^4.2.17",
     "cross-env": "^7.0.3",
     "eslint": "^8.56.0",

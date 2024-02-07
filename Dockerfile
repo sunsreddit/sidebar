@@ -1,9 +1,9 @@
 FROM node:alpine
 
 ENV VERSION=${VERSION:-'development'} \
-  NPM_CRON=${NPM_CRON:-false} \
   USER_AGENT=${USER_AGENT:-"GenericApp/development"} \
   TZ=${TZ:-'America/New_York'} \
+  CRON=1 \
   WORKDIR=/usr/src/app
 
 LABEL maintainer="r/bruxc <bruxc@sunsreddit.net>" \
@@ -13,12 +13,12 @@ LABEL maintainer="r/bruxc <bruxc@sunsreddit.net>" \
 
 WORKDIR $WORKDIR
 
-COPY ../bin ./bin
-COPY ../config ./config
-COPY ../scripts/docker/entrypoint.sh /usr/local/bin/entrypoint.sh
-COPY ../src ./src
-COPY ../package*.json .
-COPY ../.npmrc .
+COPY ./bin ./bin
+COPY ./config ./config
+COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY ./src ./src
+COPY ./package*.json .
+COPY ./.npmrc .
 
 RUN chmod +x /usr/local/bin/entrypoint.sh && \
     chown -R node:node $WORKDIR

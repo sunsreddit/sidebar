@@ -56,7 +56,3 @@ if [ "$REMOTE" = 'false' ]; then
     -t "$IMAGE_NAME:$VERSION" \
     .
 fi
-
-if [ "$REMOTE" = 'true' ]; then
-  docker build -f docker/Dockerfile --rm -t .
-fi

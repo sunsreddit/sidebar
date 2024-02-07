@@ -3,44 +3,71 @@ on:
   push:
     branches:
       - main
+      - v0.9
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
 jobs:
   docker:
     name: Docker (AWS ECR)
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      IMAGE_NAME: ${{ github.repository }}
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Project Version
-        id: project_version
-        # run: echo "::set-output name=version::$(cat package.json | jq -r '.version')"
+      - name: Configure NPM
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+          echo "@sunsreddit:registry=https://npm.pkg.github.com" >> .npmrc
+
+      - name: Get Project Version
+        id: version
         run: echo "version=$(cat package.json | jq -r '.version')" >> $GITHUB_OUTPUT
-        
-      - name: Build Docker Image
-        # run: npm run build:docker:force
-        run: echo $USER_AGENT
-        env:
-          IMAGE_NAME: 
-          USER_AGENT: "App/${{ steps.project_version.outputs.version }} Subreddit Sidebar by /u/bruxc (bruxc@sunsreddit.net)"
-          VERSION: ${{ steps.project_version.outputs.version }}
 
-      # - name: Credentials
-      #   uses: aws-actions/configure-aws-credentials@v4
-      #   with:
-      #     role-to-assume: ${{ secrets.AWS_IAM_ROLE_ARN }}
-      #     aws-region: ${{ secrets.AWS_REGION }}
+      - name: Setup ECR Authentication
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
-      # - name: Login to AWS ECR
-      #   id: login-ecr
-      #   uses: aws-actions/amazon-ecr-login@v2
+      - name: Login to Amazon ECR
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
 
-      # - name: Authenticate with AWS ECR
-      #   run: |
-      #     aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | 
-      #     docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
-
-      # - name: Tag Docker image
-      #   run: docker tag ${REPOSITORY_NAME}:${VERSION} ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${REPOSITORY_NAME}:latest
-
-      # - name: Push Docker image to AWS ECR
-      #   run: docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${REPOSITORY_NAME}:latest
+      - name: Create Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        env: 
+          REGISTRY: ${{ steps.ecr.outputs.registry }}
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=raw,value={{sha}},enable=${{ github.ref_type != 'tag' }}
+          
+      - uses: actions/setup-node@v4
+        with:
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@sunsreddit'
+          node-version-file: 'package.json'
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v5
+        with:
+          context: '.'
+          build-args: |
+            USER_AGENT: App/${{ steps.version.outputs.version }} Subreddit Sidebar by /u/bruxc (bruxc@sunsreddit.net)
+            VERSION: ${{ steps.version.outputs.version }}
+          cache-from: type=registry,ref=${{ steps.ecr.outputs.registry }}/${{ env.IMAGE_NAME }}
+          cache-to: type=gha,mode=max
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/amd64
+          push: true

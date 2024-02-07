@@ -84,7 +84,7 @@ tables with the pertinent details of game scores, players, and other fun statist
   
   ```bash
   TZ=America/New_York # TimeZone  
-  NPM_CRON=on|off # Enable Cron support
+  CRON=0|1 # Enable Cron support
   VERSION=1.0.0 # package.json project version
   CLIENT_ID=ABcD0fghIj2kLMNopqRSTUv # See Reddit API documentation
   CLIENT_SECRET=A1Bc_D_EfG2hIjK3LmnoPQrs4tu # See Reddit API documentation
@@ -104,13 +104,13 @@ with the appropriate values.
 ### IV. Cron
 
 - Specify a cron schedule in `config/parameters.json`
-- Add `NPM_CRON=on` in `.env`
+- Add `CRON=1` in `.env`
 - Run the following NPM script: `npm run start:cron` or `node ./bin/cron.mjs`
 
 ### V. Docker
 
 - Add version number to the `VERSION` in `.env`
-- Add `NPM_CRON=on` in `.env`
+- Add `CRON=1` in `.env`
 - For no prompting, build with the following NPM script: `npm run build:docker:force`
 - For prompting, build with the following NPM script: `npm run build:docker`
 

@@ -11,7 +11,7 @@
     "template": "./node_modules/clean-jsdoc-theme",
     "theme_opts": {
       "theme": "dark",
-      "title": "r/SUNS Sidebar"
+      "title": "r/suns Sidebar"
     }
   },
   "plugins": [
