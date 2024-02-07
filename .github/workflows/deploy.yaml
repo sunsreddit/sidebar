@@ -16,7 +16,7 @@ jobs:
     env:
       IMAGE_NAME: ${{ github.repository }}
       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -62,7 +62,6 @@ jobs:
           node-version-file: 'package.json'
       - uses: docker/build-push-action@v5
         with:
-          context: '.'
           build-args: |
             USER_AGENT: App/${{ steps.version.outputs.version }} Subreddit Sidebar by /u/bruxc (bruxc@sunsreddit.net)
             VERSION: ${{ steps.version.outputs.version }}
