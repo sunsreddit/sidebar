@@ -15,7 +15,7 @@ WORKDIR $WORKDIR
 
 COPY ./bin ./bin
 COPY ./config ./config
-COPY ./scripts /usr/local/bin
+COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY ./src ./src
 COPY ./package*.json .
 COPY ./.npmrc .
