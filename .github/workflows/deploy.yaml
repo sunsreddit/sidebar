@@ -53,7 +53,7 @@ jobs:
       - name: Push to Amazon ECR
         uses: docker/build-push-action@v5
         with:
-          context: './docker'
+          context: '.'
           build-args: |
             USER_AGENT: App/${{ steps.version.outputs.version }} Subreddit Sidebar by /u/bruxc (bruxc@sunsreddit.net)
             VERSION: ${{ steps.version.outputs.version }}
