@@ -21,10 +21,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # - name: Configure NPM
-      #   run: |
-      #     echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
-      #     echo "@sunsreddit:registry=https://npm.pkg.github.com" >> .npmrc
+      - name: Configure NPM
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+          echo "@sunsreddit:registry=https://npm.pkg.github.com" >> .npmrc
 
       - name: Get Project Version
         id: version
