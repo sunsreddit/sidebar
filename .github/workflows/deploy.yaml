@@ -15,20 +15,27 @@ jobs:
       contents: read
     env:
       IMAGE_NAME: ${{ github.repository }}
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Configure NPM
-        run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
-          echo "@sunsreddit:registry=https://npm.pkg.github.com" >> .npmrc
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - uses: actions/setup-node@v3
+        with:
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@sunsreddit'
+      
+      # - name: Configure NPM
+      #   run: |
+      #     echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+      #     echo "@sunsreddit:registry=https://npm.pkg.github.com" >> .npmrc
 
       # - name: Dependencies
       #   run: npm ci --ignore-scripts
       #   env:
-      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN}}
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Get Project Version
         id: version
@@ -45,7 +52,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Create Docker metadata
-        id: metadata
+        id: meta
         uses: docker/metadata-action@v5
         env: 
           REGISTRY: ${{ steps.ecr.outputs.registry }}
@@ -54,6 +61,7 @@ jobs:
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
             type=raw,value={{sha}},enable=${{ github.ref_type != 'tag' }}
 
       - name: Setup Docker Buildx
@@ -68,7 +76,7 @@ jobs:
             VERSION: ${{ steps.version.outputs.version }}
           cache-from: type=registry,ref=${{ steps.ecr.outputs.registry }}/${{ env.IMAGE_NAME }}
           cache-to: type=gha,mode=max
-          labels: ${{ steps.metadata.outputs.labels }}
-          tags: ${{ steps.metadata.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64
           push: true
