@@ -17,17 +17,13 @@ jobs:
       IMAGE_NAME: ${{ github.repository }}
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@sunsreddit'
-          node-version-file: 'package.json'
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # - name: Configure NPM
-      #   run: |
-      #     echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
-      #     echo "@sunsreddit:registry=https://npm.pkg.github.com" >> .npmrc
+      - name: Configure NPM
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+          echo "@sunsreddit:registry=https://npm.pkg.github.com" >> .npmrc
 
       - name: Get Project Version
         id: version
