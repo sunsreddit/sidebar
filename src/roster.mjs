@@ -11,7 +11,7 @@ import { default as parameters } from '../config/parameters.json' assert { type:
 export async function playerRosterTable(players) {
   let table = `\n\\# | PLAYER | POSITION\n:-: | :-: | :-:\n`;
   Object.values(players).forEach((player) => {
-    table += `${player.NUM} | ${player.PLAYER} | ${player.POSITION}\n`;
+    table += `${player.NUM || '-'} | ${player.PLAYER || '-'} | ${player.POSITION || '-'}\n`;
   });
   return table;
 }
